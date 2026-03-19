@@ -1,0 +1,146 @@
+{
+  "lab": {
+    "id": "celano-nanoelectronics-metrology-lab",
+    "name": "Nanoelectronics Metrology & Failure Analysis Lab",
+    "location": "ASU – MacroTechnology Works (MTW) / Engineering Research Center",
+    "website": "https://labs.engineering.asu.edu/celano/",
+    "description": "Interdisciplinary research group focused on nanoelectronics, nanoscale analytical imaging, and correlative metrology for emerging devices and 2D materials."
+  },
+  "tools": [
+    {
+      "toolId": "SNVM-QNAMI-PROTEUSQ-001",
+      "name": "Qnami ProteusQ Scanning NV Microscope",
+      "vendor": "Qnami",
+      "model": "ProteusQ",
+      "category": "Quantum / Scanning Probe Microscopy",
+      "labLocation": "MTW – Nanoelectronics Metrology Suite",
+      "researchArea": [
+        "Nanoscale magnetometry",
+        "Magnetic materials at the atomic scale",
+        "Correlative metrology with electrical measurements"
+      ],
+      "shortDescription": "Complete scanning NV (nitrogen-vacancy) quantum microscope for imaging surface magnetic fields of advanced materials at the nanoscale.",
+      "detailedDescription": "The Qnami ProteusQ is a turnkey quantum microscope based on scanning NV magnetometry (SNVM). It combines NV center magnetic field sensing with scanning probe microscopy to simultaneously capture sample topography and local magnetic fields with nanoscale resolution. The system is designed for room-temperature operation and comes with dedicated control and analysis software, making quantitative magnetic imaging accessible without requiring deep NV physics expertise.",
+      "specs": {
+        "measurementTechnique": "Scanning NV magnetometry (SNVM) using NV centers in diamond",
+        "operationMode": "Room-temperature, low-drift scanning NV magnetometer",
+        "keyFeatures": [
+          "Single NV center sensitivity for atomic-layer magnetic signals",
+          "Qualitative and quantitative magnetic imaging modes",
+          "Uses Qnami Quantilever probes optimized for high optical throughput",
+          "Turnkey alignment-free confocal optics and integrated electronics"
+        ],
+        "magneticSensitivity": "Better than ~2 µT/√Hz in continuous-wave ODMR mode (typical system value)",
+        "typicalApplications": [
+          "Magnetic textures in thin films and multilayers",
+          "Skyrmions and domain walls",
+          "Superconductors and vortex imaging",
+          "2D magnetic materials and heterostructures"
+        ],
+        "controlSoftware": [
+          "SmartScan SPM control",
+          "LabQ software for SNVM and ODMR",
+          "Scripting support via Jupyter/Python"
+        ]
+      },
+      "safetyNotes": "Follow standard laser safety practices when working near the optical beam path. Observe ESD precautions when loading sensitive nanoelectronic or spintronic samples. Avoid mechanical shocks to the Quantilever probes and maintain a clean, dust-free environment around the optics and scanner.",
+      "pdfs": [
+        {
+          "type": "spec-sheet",
+          "title": "Qnami ProteusQ Specification Sheet",
+          "localPath": "assets/qnami-proteusq/pdfs/proteusq_spec_sheet.pdf",
+          "url": "https://qnami.ch/wp-content/uploads/2020/06/Spec_sheet_ProteusQ.pdf"
+        },
+        {
+          "type": "brochure",
+          "title": "Qnami ProteusQ Product Overview",
+          "localPath": "assets/qnami-proteusq/pdfs/proteusq_brochure.pdf",
+          "url": "https://qnami.ch/portfolio/proteusq/"
+        }
+      ],
+      "images": [
+        {
+          "label": "Qnami ProteusQ system overview",
+          "localPath": "assets/qnami-proteusq/images/proteusq_system.jpg",
+          "url": "/assets/qnami-proteusq/images/proteusq_system.jpg"
+        }
+      ],
+      "tags": [
+        "ProteusQ",
+        "Qnami",
+        "SNVM",
+        "scanning NV microscope",
+        "quantum magnetometry",
+        "nanoscale magnetism"
+      ]
+    },
+    {
+      "toolId": "AFM-PARK-NX-HIVAC-001",
+      "name": "Park Systems NX-Hivac High Vacuum AFM",
+      "vendor": "Park Systems",
+      "model": "NX-Hivac",
+      "category": "Atomic Force Microscopy",
+      "labLocation": "MTW – High Vacuum AFM Bay",
+      "researchArea": [
+        "Semiconductor failure analysis",
+        "Air-sensitive materials research",
+        "Nanoscale morphology and electrical characterization"
+      ],
+      "shortDescription": "High-vacuum atomic force microscope designed for failure analysis and air-sensitive materials, enabling high-accuracy nanoscale measurements with minimal tip and sample damage.",
+      "detailedDescription": "The Park NX-Hivac is a research-grade AFM engineered for high-vacuum operation, providing a clean and stable environment for nanoscale characterization. By operating under high vacuum rather than ambient or dry nitrogen, it improves measurement accuracy and repeatability while reducing probe and sample wear. The system combines Park's orthogonal scan architecture and True Non-Contact™ mode with automated vacuum control, making it well suited for semiconductor device failure analysis and studies of air-sensitive or reactive materials.",
+      "specs": {
+        "environment": "High vacuum chamber optimized for low outgassing",
+        "vacuumLevel": "Down to ~10^-5 Torr (typical), reached within a few minutes",
+        "chamberVolume_mm": [325, 420, 320],
+        "scanSystem": "Orthogonal XY scan with decoupled Z for low cross-talk",
+        "operationModes": [
+          "True Non-Contact™ AFM",
+          "Contact / tapping modes (depending on configuration)",
+          "Advanced modes such as SSRM and SCM when integrated with external electronics"
+        ],
+        "keyFeatures": [
+          "High vacuum measurement for better accuracy and repeatability",
+          "Reduced tip and sample damage compared to ambient measurements",
+          "Automated vacuum control with dedicated Hivac Manager",
+          "Supports advanced failure analysis workflows in semiconductor devices"
+        ],
+        "typicalApplications": [
+          "Failure analysis of semiconductor devices",
+          "Dopant profiling via Scanning Spreading Resistance Microscopy (SSRM)",
+          "Carrier distribution via Scanning Capacitance Microscopy (SCM)",
+          "Surface morphology of air-sensitive thin films and 2D materials"
+        ]
+      },
+      "safetyNotes": "Ensure all samples and holders are compatible with high vacuum and free of volatile contaminants before loading. Follow vacuum system procedures when venting or pumping down the chamber. Avoid overtightening sample clamps and be cautious when approaching the surface to protect both the AFM tip and delicate devices.",
+      "pdfs": [
+        {
+          "type": "brochure",
+          "title": "Park NX-Hivac Product Brochure",
+          "localPath": "assets/park-nx-hivac/pdfs/nx_hivac_brochure.pdf",
+          "url": "https://www.parksystems.com/content/dam/marketing/marketing-materials/product/afm/nx-hivac/brochure/english/ParkNXHivac230412E08A4.pdf"
+        },
+        {
+          "type": "product-page",
+          "title": "Park NX-Hivac Product Page",
+          "localPath": "assets/park-nx-hivac/pdfs/nx_hivac_product_page.pdf",
+          "url": "https://www.parksystems.com/en/products/research-afm/specialized-afm/nx-hivac"
+        }
+      ],
+      "images": [
+        {
+          "label": "Park NX-Hivac system",
+          "localPath": "assets/park-nx-hivac/images/nx_hivac_system.jpg",
+          "url": "/assets/park-nx-hivac/images/nx_hivac_system.jpg"
+        }
+      ],
+      "tags": [
+        "NX-Hivac",
+        "Park Systems",
+        "high vacuum AFM",
+        "failure analysis",
+        "semiconductors",
+        "air-sensitive materials"
+      ]
+    }
+  ]
+}

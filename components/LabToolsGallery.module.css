@@ -1,0 +1,118 @@
+.container {
+  padding: 1rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(18, 18, 18, 0.06);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.title a {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.title a:hover {
+  color: #0f62fe;
+}
+.meta {
+  color: #5b5b5b;
+  font-size: 0.9rem;
+}
+.shortDesc {
+  color: #333333;
+  font-size: 0.95rem;
+}
+.subCard {
+  background: #f8f9fb;
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+.subTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.specRow {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.18rem 0;
+}
+.specKey {
+  min-width: 120px;
+  color: #2d2d2d;
+  font-weight: 600;
+}
+.specValue {
+  color: #333333;
+  flex: 1;
+}
+.pdfRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+.pdfMeta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.linkButton {
+  background: #0f62fe;
+  color: white;
+  border: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.imagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+.thumb {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #eee;
+}
+.caption {
+  font-size: 0.8rem;
+  color: #444;
+  margin-top: 0.25rem;
+}
+.videosList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.muted {
+  color: #666;
+  font-size: 0.9rem;
+}

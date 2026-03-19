@@ -1,0 +1,90 @@
+.qrPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0 auto;
+}
+
+.qrContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: #f8f9fb;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.qrWrapper {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.qrLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2d2d2d;
+  margin: 0;
+}
+
+.urlText {
+  font-size: 0.75rem;
+  color: #999;
+  word-break: break-all;
+  margin: 0.5rem 0 0 0;
+  font-family: monospace;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn {
+  background: #0f62fe;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #0353e9;
+  box-shadow: 0 2px 8px rgba(15, 98, 254, 0.3);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .qrContainer {
+    padding: 1rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
