@@ -28,7 +28,7 @@
 
 1. **Clone or navigate to project**
    ```bash
-   cd "c:\Users\arsha\Desktop\Arsha\ASU\XR Research\XR-LabTools"
+   cd "C:\Users\Celano-Lab-XR-WebApplication"
    ```
 
 2. **Install dependencies**
@@ -75,29 +75,6 @@ XR-LabTools/
 ├── DEPLOY.md            # Deployment guide
 └── CHANGELOG.md         # Project history
 ```
-
-## Deployment to Google Cloud Run
-
-### Quick Deploy
-
-```bash
-# PowerShell (Windows)
-.\deploy-cloudrun.ps1 YOUR_PROJECT_ID
-
-# Bash (Mac/Linux)
-./deploy-cloudrun.sh YOUR_PROJECT_ID
-```
-
-### Manual Deploy
-
-```bash
-gcloud run deploy xr-labtools \
-  --source . \
-  --region us-central1 \
-  --allow-unauthenticated
-```
-
-👉 **Full deployment guide**: See [DEPLOY.md](DEPLOY.md)
 
 ## Data Structure
 
