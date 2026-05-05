@@ -8,34 +8,9 @@ interface ToolDetailProps {
   tool: Tool;
 }
 
-function renderSpecValue(val: any) {
-  if (Array.isArray(val)) {
-    return (
-      <ul>
-        {val.map((v, i) => (
-          <li key={i}>{String(v)}</li>
-        ))}
-      </ul>
-    );
-  }
-  return <span>{String(val)}</span>;
-}
-
-function formatSpecKey(key: string) {
-  const normalized = key
-    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-    .replace(/[_-]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
-
-  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
-}
-
 const ToolDetail: React.FC<ToolDetailProps> = ({ tool }) => {
   return (
     <article className={styles.container}>
-      {/* Header Section */}
       <header className={styles.header}>
         <h1 className={styles.title}>{tool.name}</h1>
         <div className={styles.headerMeta}>
@@ -48,80 +23,65 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool }) => {
         )}
       </header>
 
-      {/* Images Section */}
       {tool.images && tool.images.length > 0 && (
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Images</h2>
           <div className={styles.imagesGallery}>
-            {tool.images.map((img, i) => {
-              const imgSrc = resolveAssetUrl(img);
-              return (
-                <figure key={i} className={styles.imageFigure}>
-                  <img
-                    className={styles.toolImage}
-                    src={imgSrc}
-                    alt={img.alt ?? img.label ?? tool.name}
-                    loading="lazy"
-                    onError={(e) => {
-                      const el = e.target as HTMLImageElement;
-                      if (img.url && el.src !== img.url) {
-                        el.src = img.url;
-                        return;
-                      }
-                      el.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23f0f0f0" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
-                    }}
-                  />
-                  {(img.caption ?? img.label) && (
-                    <figcaption className={styles.imageCaption}>{img.caption ?? img.label}</figcaption>
-                  )}
-                </figure>
-              );
-            })}
+            {tool.images.map((img, i) => (
+              <figure key={i} className={styles.imageFigure}>
+                <img
+                  className={styles.toolImage}
+                  src={resolveAssetUrl(img.filePath)}
+                  alt={img.title ?? tool.name}
+                  loading="lazy"
+                />
+                {img.title && (
+                  <figcaption className={styles.imageCaption}>{img.title}</figcaption>
+                )}
+              </figure>
+            ))}
           </div>
         </section>
       )}
 
-      {/* Specs Section */}
-      {tool.specs && Object.keys(tool.specs).length > 0 && (
+      {tool.specs && tool.specs.length > 0 && (
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Specifications</h2>
           <div className={styles.specsGrid}>
-            {Object.entries(tool.specs).map(([key, val]) => (
-              <div className={styles.specItem} key={key}>
-                <h3 className={styles.specKey}>{formatSpecKey(key)}</h3>
-                <div className={styles.specValue}>{renderSpecValue(val)}</div>
+            {tool.specs.map((spec, i) => (
+              <div key={i} className={styles.specItem}>
+                {spec}
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* PDFs Section */}
       {tool.pdfs && tool.pdfs.length > 0 && (
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Documents</h2>
           <div className={styles.pdfsList}>
-            {tool.pdfs.map((pdf, i) => {
-              const pdfHref = resolveAssetUrl(pdf);
-              return (
-                <div className={styles.pdfItem} key={i}>
-                  <div className={styles.pdfInfo}>
-                    <h3 className={styles.pdfTitle}>{pdf.title}</h3>
-                    {pdf.type && <span className={styles.pdfType}>{pdf.type}</span>}
-                  </div>
-                  {pdfHref ? (
-                    <a className={styles.pdfLink} href={pdfHref} target="_blank" rel="noopener noreferrer">
-                      View PDF
-                    </a>
-                  ) : null}
+            {tool.pdfs.map((pdf, i) => (
+              <div className={styles.pdfItem} key={i}>
+                <div className={styles.pdfInfo}>
+                  <h3 className={styles.pdfTitle}>{pdf.title}</h3>
                 </div>
-              );
-            })}
+                {resolveAssetUrl(pdf.filePath) && (
+                  <a
+                    className={styles.pdfLink}
+                    href={resolveAssetUrl(pdf.filePath)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View PDF
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
         </section>
       )}
 
-      {/* Videos Section */}
       {tool.videos && tool.videos.length > 0 && (
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Videos</h2>
@@ -130,11 +90,11 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool }) => {
               <a
                 key={i}
                 className={styles.videoLink}
-                href={video.url}
+                href={video.filePath}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {video.title || video.url}
+                {video.title || video.filePath}
               </a>
             ))}
           </div>

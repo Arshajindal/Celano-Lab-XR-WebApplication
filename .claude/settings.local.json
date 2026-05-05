@@ -5,7 +5,11 @@
       "Bash(npx tsc:*)",
       "Bash(mv assets/qnami-proteusq/pdfs public/assets/qnami-proteusq/pdfs)",
       "Bash(mv assets/park-nx-hivac/pdfs public/assets/park-nx-hivac/pdfs)",
-      "Bash(find assets:*)"
+      "Bash(find assets:*)",
+      "Bash(mkdir -p db/migrations)",
+      "Bash(mkdir -p \"pages/api/tools/[toolId]\")",
+      "Bash(npm install *)",
+      "Bash(npx next *)"
     ]
   }
 }

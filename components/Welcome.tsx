@@ -48,7 +48,7 @@ const Welcome: React.FC<WelcomeProps> = ({ tools }) => {
         
         <div className={styles.toolsList}>
           {tools.map((tool, idx) => {
-            const toolId = (tool as any).toolId || String(tool.name).toLowerCase().replace(/\s+/g, '-');
+            const toolId = tool.toolId;
             return (
               <Link href={`/tools/${toolId}`} key={idx} className={styles.toolItem}>
                 <div className={styles.toolHeader}>

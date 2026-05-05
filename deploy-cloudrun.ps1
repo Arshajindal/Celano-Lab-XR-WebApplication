@@ -8,6 +8,7 @@ param(
 
 $ServiceName = "xr-labtools"
 $Region = "us-central1"
+$CloudSqlInstance = "${ProjectId}:${Region}:celano-lab-db"
 
 Write-Host "Deploying XR-LabTools to Cloud Run..." -ForegroundColor Green
 Write-Host "Project ID: $ProjectId"
@@ -22,7 +23,8 @@ gcloud config set project $ProjectId
 gcloud services enable `
   run.googleapis.com `
   cloudbuild.googleapis.com `
-  artifactregistry.googleapis.com
+  artifactregistry.googleapis.com `
+  sqladmin.googleapis.com
 
 # Deploy to Cloud Run
 gcloud run deploy $ServiceName `
@@ -34,7 +36,9 @@ gcloud run deploy $ServiceName `
   --cpu 1 `
   --timeout 300 `
   --max-instances 10 `
-  --port 8080
+  --port 8080 `
+  --add-cloudsql-instances $CloudSqlInstance `
+  --set-env-vars "DATABASE_URL=postgresql://postgres:YOUR_SECURE_PASSWORD@localhost:5432/celano_lab?host=/cloudsql/${CloudSqlInstance}"
 
 Write-Host ""
 Write-Host "Deployment complete." -ForegroundColor Green

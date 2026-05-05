@@ -1,9 +1,9 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import rawData from '@/data/labtools.json';
 import ToolDetail from '@/components/ToolDetail';
 import { Tool } from '@/components/LabToolsGallery';
+import { getToolById } from '@/db/queries';
 
 interface ToolPageProps {
   tool: Tool;
@@ -35,38 +35,16 @@ export default function ToolPage({ tool }: ToolPageProps) {
   );
 }
 
-// Generate static paths for all tools
-export const getStaticPaths: GetStaticPaths = async () => {
-  const data = rawData as any;
-  const tools: Tool[] = data.tools || [];
+export const getServerSideProps: GetServerSideProps<ToolPageProps> = async ({ params }) => {
+  const toolId = params?.toolId;
+  if (typeof toolId !== 'string') {
+    return { notFound: true };
+  }
 
-  const paths = tools.map((tool) => ({
-    params: { toolId: (tool as any).toolId || String(tool.name).toLowerCase().replace(/\s+/g, '-') },
-  }));
-
-  return {
-    paths,
-    fallback: false, // Return 404 for unknown tool IDs
-  };
-};
-
-// Generate static props for each tool
-export const getStaticProps: GetStaticProps<ToolPageProps> = async ({ params }) => {
-  const data = rawData as any;
-  const tools: Tool[] = data.tools || [];
-
-  const tool = tools.find(
-    (t) => (t as any).toolId === params?.toolId || String(t.name).toLowerCase().replace(/\s+/g, '-') === params?.toolId
-  );
-
+  const tool = await getToolById(toolId);
   if (!tool) {
     return { notFound: true };
   }
 
-  return {
-    props: {
-      tool,
-    },
-    revalidate: 3600, // ISR: revalidate every hour
-  };
+  return { props: { tool } };
 };

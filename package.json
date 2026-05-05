@@ -4,22 +4,26 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build:packages": "node scripts/build-packages.js",
-    "build": "npm run build:packages && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "node db/migrate.js",
+    "db:seed": "node db/seed.js"
   },
   "dependencies": {
+    "archiver": "^7.0.1",
     "next": "^16.2.3",
+    "pg": "^8.13.0",
     "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/archiver": "^7.0.0",
     "@types/node": "^20.0.0",
+    "@types/pg": "^8.11.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "archiver": "^7.0.1",
     "typescript": "^5.0.0"
   }
 }

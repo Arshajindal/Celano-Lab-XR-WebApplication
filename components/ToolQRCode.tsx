@@ -19,7 +19,7 @@ const ToolQRCode: React.FC<ToolQRCodeProps> = ({
 }) => {
   const rawBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://xr-labtools-745967509851.us-central1.run.app';
   const baseUrl = rawBaseUrl.replace(/\/+$/, '');
-  const url = `${baseUrl}/packages/${toolId}.zip`;
+  const url = `${baseUrl}/api/tools/${toolId}/package`;
 
   return (
     <div className={styles.qrContainer}>
