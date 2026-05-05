@@ -1,0 +1,14 @@
+{
+    "modelId": "parksys-1",
+    "annotations": [
+        {
+            "title": "handle",
+            "description": "handle label",
+            "localPosition": {
+                "x": -0.151072695851326,
+                "y": -0.04701303690671921,
+                "z": 0.23505307734012605
+            }
+        }
+    ]
+}

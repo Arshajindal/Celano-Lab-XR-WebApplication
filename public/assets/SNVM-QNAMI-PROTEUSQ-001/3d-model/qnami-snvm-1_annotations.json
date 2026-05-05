@@ -1,0 +1,14 @@
+{
+    "modelId": "qnami-snvm-1",
+    "annotations": [
+        {
+            "title": "Top",
+            "description": "top label",
+            "localPosition": {
+                "x": -0.015600350685417652,
+                "y": 0.27420663833618166,
+                "z": 0.16970618069171906
+            }
+        }
+    ]
+}

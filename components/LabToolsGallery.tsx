@@ -7,14 +7,28 @@ import rawData from '../data/labtools.json';
 export interface Pdf {
   title: string;
   type?: string;
-  url: string;
+  url?: string;
+  localPath?: string;
 }
 
 export interface ImageItem {
-  url: string;
+  url?: string;
+  localPath?: string;
   label?: string;
   alt?: string;
   caption?: string;
+}
+
+// Prefer a locally-bundled asset (served from /public) over an external URL.
+// Leading slashes are normalized so "assets/foo.jpg" and "/assets/foo.jpg" both work.
+export function resolveAssetUrl(item: { localPath?: string; url?: string } | undefined): string | undefined {
+  if (!item) return undefined;
+  const local = item.localPath;
+  if (local && local.length > 0) {
+    if (/^https?:\/\//i.test(local)) return local;
+    return local.startsWith('/') ? local : '/' + local;
+  }
+  return item.url;
 }
 
 export interface VideoItem {
@@ -136,19 +150,24 @@ const LabToolsGallery: React.FC = () => {
             <section className={styles.subCard} aria-label="PDFs">
               <div className={styles.subTitle}>PDFs</div>
               {tool.pdfs && tool.pdfs.length > 0 ? (
-                tool.pdfs.map((p, i) => (
-                  <div className={styles.pdfRow} key={i}>
-                    <div className={styles.pdfMeta}>
-                      <div>
-                        <div style={{ fontWeight: 600 }}>{p.title}</div>
-                        <div className={styles.muted}>{p.type}</div>
+                tool.pdfs.map((p, i) => {
+                  const pdfHref = resolveAssetUrl(p);
+                  return (
+                    <div className={styles.pdfRow} key={i}>
+                      <div className={styles.pdfMeta}>
+                        <div>
+                          <div style={{ fontWeight: 600 }}>{p.title}</div>
+                          <div className={styles.muted}>{p.type}</div>
+                        </div>
                       </div>
+                      {pdfHref ? (
+                        <a className={styles.linkButton} href={pdfHref} target="_blank" rel="noopener noreferrer">
+                          Open
+                        </a>
+                      ) : null}
                     </div>
-                    <a className={styles.linkButton} href={p.url} target="_blank" rel="noopener noreferrer">
-                      Open
-                    </a>
-                  </div>
-                ))
+                  );
+                })
               ) : (
                 <div className={styles.muted}>No PDFs available</div>
               )}
@@ -160,20 +179,28 @@ const LabToolsGallery: React.FC = () => {
               {tool.images && tool.images.length > 0 ? (
                 <div>
                   <div className={styles.imagesGrid}>
-                    {tool.images.map((img, i) => (
-                      <figure key={i} style={{ margin: 0 }}>
-                        <img 
-                          className={styles.thumb} 
-                          src={img.url} 
-                          alt={img.alt ?? img.label ?? tool.name}
-                          loading="lazy"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80"%3E%3Crect fill="%23f0f0f0" width="80" height="80"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
-                          }}
-                        />
-                        {(img.caption ?? img.label) && <figcaption className={styles.caption}>{img.caption ?? img.label}</figcaption>}
-                      </figure>
-                    ))}
+                    {tool.images.map((img, i) => {
+                      const imgSrc = resolveAssetUrl(img);
+                      return (
+                        <figure key={i} style={{ margin: 0 }}>
+                          <img
+                            className={styles.thumb}
+                            src={imgSrc}
+                            alt={img.alt ?? img.label ?? tool.name}
+                            loading="lazy"
+                            onError={(e) => {
+                              const el = e.target as HTMLImageElement;
+                              if (img.url && el.src !== img.url) {
+                                el.src = img.url;
+                                return;
+                              }
+                              el.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80"%3E%3Crect fill="%23f0f0f0" width="80" height="80"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
+                            }}
+                          />
+                          {(img.caption ?? img.label) && <figcaption className={styles.caption}>{img.caption ?? img.label}</figcaption>}
+                        </figure>
+                      );
+                    })}
                   </div>
                 </div>
               ) : (
@@ -192,6 +219,7 @@ const LabToolsGallery: React.FC = () => {
                     </a>
                   ))}
                 </div>
+
               </section>
             ) : null}
           </article>

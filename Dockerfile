@@ -16,6 +16,13 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# NEXT_PUBLIC_* values must be present at build time so they get inlined into
+# the client bundle. The default matches the production Cloud Run URL; override
+# with `docker build --build-arg NEXT_PUBLIC_BASE_URL=...` or
+# `gcloud run deploy --set-build-env-vars=NEXT_PUBLIC_BASE_URL=...`.
+ARG NEXT_PUBLIC_BASE_URL=https://xr-labtools-745967509851.us-central1.run.app
+ENV NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
+
 # Build Next.js app
 RUN npm run build
 

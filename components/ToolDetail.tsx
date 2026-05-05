@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './ToolDetail.module.css';
-import { Tool } from './LabToolsGallery';
+import { Tool, resolveAssetUrl } from './LabToolsGallery';
 
 interface ToolDetailProps {
   tool: Tool;
@@ -53,22 +53,30 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool }) => {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Images</h2>
           <div className={styles.imagesGallery}>
-            {tool.images.map((img, i) => (
-              <figure key={i} className={styles.imageFigure}>
-                <img
-                  className={styles.toolImage}
-                  src={img.url}
-                  alt={img.alt ?? img.label ?? tool.name}
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23f0f0f0" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
-                  }}
-                />
-                {(img.caption ?? img.label) && (
-                  <figcaption className={styles.imageCaption}>{img.caption ?? img.label}</figcaption>
-                )}
-              </figure>
-            ))}
+            {tool.images.map((img, i) => {
+              const imgSrc = resolveAssetUrl(img);
+              return (
+                <figure key={i} className={styles.imageFigure}>
+                  <img
+                    className={styles.toolImage}
+                    src={imgSrc}
+                    alt={img.alt ?? img.label ?? tool.name}
+                    loading="lazy"
+                    onError={(e) => {
+                      const el = e.target as HTMLImageElement;
+                      if (img.url && el.src !== img.url) {
+                        el.src = img.url;
+                        return;
+                      }
+                      el.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23f0f0f0" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
+                    }}
+                  />
+                  {(img.caption ?? img.label) && (
+                    <figcaption className={styles.imageCaption}>{img.caption ?? img.label}</figcaption>
+                  )}
+                </figure>
+              );
+            })}
           </div>
         </section>
       )}
@@ -93,17 +101,22 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool }) => {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Documents</h2>
           <div className={styles.pdfsList}>
-            {tool.pdfs.map((pdf, i) => (
-              <div className={styles.pdfItem} key={i}>
-                <div className={styles.pdfInfo}>
-                  <h3 className={styles.pdfTitle}>{pdf.title}</h3>
-                  {pdf.type && <span className={styles.pdfType}>{pdf.type}</span>}
+            {tool.pdfs.map((pdf, i) => {
+              const pdfHref = resolveAssetUrl(pdf);
+              return (
+                <div className={styles.pdfItem} key={i}>
+                  <div className={styles.pdfInfo}>
+                    <h3 className={styles.pdfTitle}>{pdf.title}</h3>
+                    {pdf.type && <span className={styles.pdfType}>{pdf.type}</span>}
+                  </div>
+                  {pdfHref ? (
+                    <a className={styles.pdfLink} href={pdfHref} target="_blank" rel="noopener noreferrer">
+                      View PDF
+                    </a>
+                  ) : null}
                 </div>
-                <a className={styles.pdfLink} href={pdf.url} target="_blank" rel="noopener noreferrer">
-                  View PDF
-                </a>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}
